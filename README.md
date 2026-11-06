@@ -30,6 +30,7 @@ csi_project/
 │   ├── project_plan.md      Objective, phases, team tasks, timeline, blockers
 │   ├── setup.md              High-level reproduction guide
 │   ├── roadmap.md            Detailed technical roadmap + file index
+│   ├── issues.md             Known issues / bug backlog
 │   └── tasks.md               Current, day-to-day task assignments
 │
 ├── nexmon/
@@ -120,6 +121,7 @@ Releases page; not part of this directory structure.
 | How do I run capture day-to-day? | `nexmon/docs/csi_setup-README.md` |
 | What's the deeper technical roadmap after acquisition? | `docs/roadmap.md` |
 | Who's doing what right now? | `docs/tasks.md` |
+| What's known broken? | `docs/issues.md` |
 
 ## Current status
 - Nexmon CSI acquisition path verified on RPi 4B (Raspberry Pi OS Trixie).
