@@ -127,7 +127,7 @@ make
 Use USB Ethernet gadget mode instead:
 
 ```bash
-ssh pios@raspberrypi.local
+ssh pios@raspberry.local
 ```
 
 With SSH isolated on `usb0`, it's safe to run:

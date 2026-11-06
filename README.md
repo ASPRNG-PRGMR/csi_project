@@ -34,7 +34,8 @@ csi_project/
 │
 ├── nexmon/
 │   ├── scripts/
-│   │   └── csi_setup.sh              Start/capture/status/restore automation
+│   │   ├── csi_setup.sh              Start/capture/status/restore automation (runs on the Pi)
+│   │   └── pi_usb_link.sh            Bring up the USB management link (runs on the laptop)
 │   └── docs/
 │       ├── rpi-csi-devlog.md         One-time provisioning devlog (verified)
 │       └── csi_setup-README.md       csi_setup.sh command reference + troubleshooting
@@ -57,6 +58,33 @@ csi_project/
 │
 └── .gitignore
 ```
+
+## Connecting to the Pi (do this first)
+
+CSI capture hands `wlan0` to Nexmon, so SSH has to run over the USB
+ethernet-gadget link instead — `csi_setup.sh` refuses to start without it.
+On the **laptop**, run:
+
+```
+./nexmon/scripts/pi_usb_link.sh            # configure + bring up + verify
+./nexmon/scripts/pi_usb_link.sh status     # read-only check
+```
+
+No arguments and no prompts. Then `ssh pios@raspberry.local`.
+
+The Pi side needs no setup — `dtoverlay=dwc2,dr_mode=peripheral`,
+`modules-load=dwc2,g_ether` and a link-local NetworkManager profile on `usb0`
+are already in place. What breaks is the laptop: NetworkManager claims the
+gadget with `ipv4.method=auto`, hangs on DHCP that nothing answers, and never
+falls back, so the host gets no IPv4 and cannot reach the Pi at all. The script
+fixes that persistently and binds the profile by **driver** rather than
+interface name, because `enpXsYfZuN` changes whenever the cable moves port.
+
+Two things worth knowing:
+
+- The Pi is **`raspberry.local`**, not `raspberrypi.local`.
+- Both ends use IPv4 link-local addresses that are reassigned on every Pi
+  reboot. Always connect by name; never hardcode an address.
 
 ## Running CSI capture
 

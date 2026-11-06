@@ -58,7 +58,7 @@ instead of `wlan0`, useful if the CSI UDP export target isn't the Pi itself
 ## 2. Normal Session
 
 ```bash
-ssh pios@raspberrypi.local          # over usb0, never over wlan0
+ssh pios@raspberry.local            # over usb0, never over wlan0
 ./csi_setup.sh start
 # → prompted for transmitter's actual channel (check AP/hotspot, don't
 #   assume — e.g. 2412 MHz is channel 1, not channel 6)
